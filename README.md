@@ -1,5 +1,13 @@
 # RLBench: Robot Learning Benchmark [![Unit Tests](https://github.com/stepjam/RLBench/workflows/Unit%20Tests/badge.svg)](https://github.com/stepjam/RLBench/actions) [![Task Tests](https://github.com/stepjam/RLBench/workflows/Task%20Tests/badge.svg)](https://github.com/stepjam/RLBench/actions) [![Discord](https://img.shields.io/discord/694945190867370155.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/DXPCjmd)
 
+> **Fork note (Bigenlight/RLBench_docker):** this fork adds a [`docker/`](./docker/)
+> directory with a self-contained Dockerfile that runs RLBench headlessly with
+> **real GPU camera rendering** in Docker — no VirtualGL, no host X11 socket, no
+> nvidia-xconfig'd Xorg needed. The trick is a single environment variable
+> (`QT_PLUGIN_PATH=$COPPELIASIM_ROOT`) that lets CoppeliaSim's bundled Qt5 find
+> its `xcbglintegrations/` plugins under Xvfb. See [`docker/README.md`](./docker/README.md)
+> for the full root-cause writeup, build instructions, and a 40-task render example.
+
 ![task grid image missing](readme_files/task_grid.png)
 
 **RLBench** is an ambitious large-scale benchmark and learning environment 

@@ -1,0 +1,29 @@
+# RLBench source ends up at /opt/RLBench via `COPY . /opt/RLBench`.
+# Exclude things that should not be inside the image.
+
+# Docker setup itself — we don't want /opt/RLBench/docker/ inside the container
+docker/
+
+# Version control
+.git/
+.gitignore
+.github/
+
+# Caches / build artifacts
+**/__pycache__/
+**/*.pyc
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+*.egg-info/
+build/
+dist/
+
+# IDE / editor cruft
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Local outputs / scratch
+/tmp/
