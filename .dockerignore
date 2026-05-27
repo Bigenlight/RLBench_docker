@@ -1,8 +1,17 @@
-# RLBench source ends up at /opt/RLBench via `COPY . /opt/RLBench`.
-# Exclude things that should not be inside the image.
+# RLBench source ends up at /opt/RLBench via `COPY . /opt/RLBench` in
+# docker/Dockerfile. VLA Dockerfiles under vla/<name>/ build with this repo
+# root as the context too, and only COPY their own entrypoint.sh into the image
+# (no `COPY . ...`). So we exclude everything Docker-side and re-include only
+# the per-VLA entrypoints.
 
-# Docker setup itself — we don't want /opt/RLBench/docker/ inside the container
+# Base RLBench docker setup — keep entrypoint accessible to the build context.
 docker/
+!docker/entrypoint.sh
+
+# Per-VLA Docker overlays — each VLA exempts its own entrypoint.
+# Add `!vla/<new_vla>/entrypoint.sh` lines here when adding a new VLA folder.
+vla/
+!vla/bridgevla/entrypoint.sh
 
 # Version control
 .git/

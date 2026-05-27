@@ -1,0 +1,28 @@
+# =============================================================================
+# enable_singleep_summaries.patch
+# =============================================================================
+# Purpose:
+#   YARR's _SimpleAccumulator.pop() originally required len(episode_returns) > 1
+#   before flushing summaries (assumed eval has many episodes). With
+#   --eval-episodes 1 (smoke test), pop() returns []; downstream code then
+#   reports "Final Score: unknown" and skips video save. Relax to >= 1.
+#
+# Apply (idempotent via --forward):
+#   cd /workspace/BridgeVLA/finetune
+#   patch -p1 --forward < enable_singleep_summaries.patch
+# =============================================================================
+--- a/bridgevla/libs/YARR/yarr/utils/stat_accumulator.py
++++ b/bridgevla/libs/YARR/yarr/utils/stat_accumulator.py
+@@ -112,8 +112,11 @@
+         return sums
+ 
+     def pop(self) -> List[Summary]:
++        # RLBench_docker patch: original required >1 episodes before flushing,
++        # so single-episode eval runs got empty summaries (no scores, no video).
++        # Relax to >=1 so a 1-ep smoke test still emits VideoSummary entries.
+         data = []
+-        if len(self._episode_returns) > 1:
++        if len(self._episode_returns) >= 1:
+             data = self._get()
+             self._reset_data()
+         return data

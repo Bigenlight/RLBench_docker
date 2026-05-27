@@ -117,3 +117,25 @@ dmypy.json
 .pyre/
 
 index.html
+
+# Per-VLA eval artifacts — keep small mp4s & expert demos under examples/,
+# but large dumps (raw frames, full checkpoints, big logs) stay local.
+vla/*/examples/output/
+vla/*/examples/raw/
+vla/*/examples/**/raw/
+vla/*/checkpoints/
+**/bridgevla_libs_installed
+
+# Model checkpoints — never commit ML weights to git, regardless of where
+# they land in the tree. BridgeVLA's model_80.pth alone is ~9 GB.
+*.pth
+*.safetensors
+*.bin
+*.ckpt
+*.onnx
+
+# Antigravity CLI state / cache
+.antigravitycli/
+
+# Sub-repositories cloned for research (keep them out of parent index)
+research/*/repos/

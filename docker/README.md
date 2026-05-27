@@ -8,6 +8,11 @@ frame failure mode that most setups online run into).
 The whole thing is ~110 lines of Dockerfile + 25 lines of entrypoint. The
 secret is one environment variable that's missing from every guide we found.
 
+> Running a VLA (BridgeVLA, etc.) against RLBench? This base image is the
+> dev / showcase environment for plain RLBench; per-VLA overlays live under
+> [`../vla/`](../vla/) (each is its own self-contained Dockerfile because
+> Python / RLBench-fork pins differ from this base).
+
 ---
 
 ## TL;DR
