@@ -233,8 +233,10 @@ RUN chmod -R a+rwX /opt/venv /opt/sam2_ckpts /opt/tgmvla_patches /workspace
 # --------------------------------------------------------------------------- #
 # Entrypoint: start Xvfb on :99 if no $DISPLAY (same logic as the RLBench
 # entrypoint), THEN install TGM-VLA's vendored libs from the bind-mount
-# (/workspace/TGM-VLA/tgm_vla/libs/*) on first start, guarded by a marker
-# file inside the bind-mount so it survives container rm.
+# (/workspace/TGM-VLA/tgm_vla/libs/*) on first start, gated by an import
+# check (`python -c "import rlbench, pyrep, point_renderer, tgm_vla"`)
+# so image rebuilds against the same bind-mount source still reinstall.
+# See vla/tgm_vla/DEVNOTES.md §4 for the rationale.
 # --------------------------------------------------------------------------- #
 COPY vla/tgm_vla/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
