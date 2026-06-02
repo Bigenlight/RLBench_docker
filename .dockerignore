@@ -12,6 +12,9 @@ docker/
 # Add `!vla/<new_vla>/entrypoint.sh` lines here when adding a new VLA folder.
 vla/
 !vla/bridgevla/entrypoint.sh
+!vla/tgm_vla/entrypoint.sh
+!vla/tgm_vla/patches/
+!vla/tgm_vla/patches/*.patch
 
 # Version control
 .git/

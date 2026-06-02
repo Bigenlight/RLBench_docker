@@ -1,0 +1,42 @@
+--- a/tgm_vla/tools/test_rlbench.py
++++ b/tgm_vla/tools/test_rlbench.py
+@@ -192,7 +192,7 @@
+                 timesteps=1,
+                 eval=True,
+                 eval_demo_seed=ep,
+-                record_enabled=False,
++                record_enabled=args.save_video,
+                 replay_ground_truth=args.ground_truth,
+             )
+             try:
+@@ -218,6 +218,30 @@
+                 f"Evaluating {task_name} | Episode {ep} | Score: {reward} | Episode Length: {len(episode_rollout)} | Lang Goal: {lang_goal}"
+             )
+             
++            # PATCH: directly save video from VideoSummary in episode_rollout
++            if args.save_video:
++                import cv2 as _cv2
++                from yarr.agents.agent import VideoSummary as _VS
++                _video_dir = os.path.join(args.log_dir, "videos")
++                os.makedirs(_video_dir, exist_ok=True)
++                _success = reward > 99
++                _suffix = "success" if _success else "fail"
++                for _t in episode_rollout:
++                    for _s in getattr(_t, "summaries", []):
++                        if isinstance(_s, _VS):
++                            _vid = _s.value
++                            if _vid.ndim == 4 and _vid.shape[1] == 3:
++                                _vid = _vid.transpose(0, 2, 3, 1)
++                            _vid = _vid[..., ::-1]  # RGB -> BGR
++                            _H, _W = _vid.shape[1:3]
++                            _path = os.path.join(_video_dir, f"{task_name}_{_suffix}_ep{ep}.mp4")
++                            _fourcc = _cv2.VideoWriter_fourcc(*"mp4v")
++                            _writer = _cv2.VideoWriter(_path, _fourcc, 25, (_W, _H))
++                            for _f in _vid:
++                                _writer.write(_f.astype("uint8"))
++                            _writer.release()
++                            logger.info(f"Saved video: {_path}")
++            
+         # report summaries
+         summaries = []
+         summaries.extend(stats_accumulator.pop())

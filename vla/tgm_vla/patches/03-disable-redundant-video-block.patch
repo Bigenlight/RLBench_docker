@@ -1,0 +1,13 @@
+--- a/tgm_vla/tools/test_rlbench.py
++++ b/tgm_vla/tools/test_rlbench.py
+@@ -309,7 +309,9 @@
+     logger.info(f"Finished {task_name} | Final Score: {task_score}\n")
+ 
+ 
+-    if args.save_video:
++    # PATCH 03: original save_results video block IndexErrors when summaries
++    # cross task boundaries. Disabled — patch 01 already saves videos directly.
++    if False and args.save_video:
+         record_fps = 25
+         record_folder = os.path.join(log_dir, "videos")
+         os.makedirs(record_folder, exist_ok=True)

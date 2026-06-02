@@ -1,0 +1,12 @@
+--- a/tgm_vla/tools/test_rlbench.py
++++ b/tgm_vla/tools/test_rlbench.py
+@@ -279,7 +279,8 @@
+             s.value for s in summaries if f"eval_envs/return/{task_name}" in s.name
+         ][0]
+     else:
+-        task_score = "unknown"
++        # Fallback: average of per-episode rewards (so the outer sum() does not blow up).
++        task_score = sum(task_rewards) / len(task_rewards) if task_rewards else 0.0
+ 
+     logger.info(f"Finished {task_name} | Final Score: {task_score}\n")
+ 

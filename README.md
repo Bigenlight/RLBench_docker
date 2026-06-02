@@ -12,9 +12,9 @@
 >   root-cause writeup, build instructions, and a 40-task render example.
 > - [`vla/`](./vla/) — **VLA evaluation overlays**, one Docker image per
 >   model. Currently supports [BridgeVLA](./vla/bridgevla/) (NeurIPS 2025,
->   PaliGemma-3B 3D VLA) running on a single 12 GB GPU with 4 patches +
->   chunked rendering. See [`vla/README.md`](./vla/README.md) for the
->   directory pattern and how to add a new VLA.
+>   PaliGemma-3B 3D VLA) and [TGM-VLA](./vla/tgm_vla/) (SAM2 + MVT 2-stage),
+>   both running on a single 12 GB GPU. See [`vla/README.md`](./vla/README.md)
+>   for the directory pattern and how to add a new VLA.
 >
 > CoppeliaSim Edu's license forbids redistribution, so these images can't
 > be pushed to Docker Hub — but the build is reproducible from this repo.
