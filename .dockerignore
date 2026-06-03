@@ -15,6 +15,9 @@ vla/
 !vla/tgm_vla/entrypoint.sh
 !vla/tgm_vla/patches/
 !vla/tgm_vla/patches/*.patch
+!vla/spatial_actor/entrypoint.sh
+!vla/spatial_actor/patches/
+!vla/spatial_actor/patches/*.patch
 
 # Version control
 .git/

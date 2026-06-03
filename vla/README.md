@@ -11,6 +11,7 @@ Each subfolder is a self-contained Dockerfile + entrypoint + patches + README
 |---|---|---|---|
 | BridgeVLA (NeurIPS 2025) | [`bridgevla/`](./bridgevla/) | PaliGemma-3B (3D, MVT) | https://github.com/BridgeVLA/BridgeVLA |
 | TGM-VLA | [`tgm_vla/`](./tgm_vla/) | SAM2-Hiera-B+ + MVT 2-stage + CLIP RN50 | https://github.com/PuFanqi23/TGM-VLA |
+| SpatialActor (AAAI 2026 Oral) | [`spatial_actor/`](./spatial_actor/) | CLIP-RN101 + ResNet-50 + DepthAnythingV2 (RVT 2-stage) | https://github.com/shihao1895/SpatialActor |
 
 > Adding a VLA? See [Adding a new VLA](#adding-a-new-vla) below.
 
